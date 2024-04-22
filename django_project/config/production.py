@@ -10,7 +10,6 @@ DB_PORT = os.getenv("DB_PORT")
 
 DATABASES = {
     "default":{
-        "production":{
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': DB_NAME,
         'USER': DB_USER,
@@ -19,6 +18,5 @@ DATABASES = {
         'PORT': DB_PORT,
     }
     }
-}
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = os.getenv("SECRET_KEY", "")
