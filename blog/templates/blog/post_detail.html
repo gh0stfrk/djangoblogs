@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+
+<article class="media content-section border p-2">
+    <div class="media-body">
+      <div class="article-metadata border p-2">
+          <img class="rounded-circle" src="{{ post.author.profile.image.url }}" alt="profile_photo"
+          style="aspect-ratio: 1/1; width: 50px;">
+        <a class="mr-2" href="#">{{ post.author }}</a>
+        <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+        {% if request.user.id == post.author.id %}
+          <a href="{% url 'update_post' pk=post.id %}" class="btn btn-primary ml-2 btn-sm">Update</a>
+        {% elif request.user.is_superuser %}
+        <a href="{% url 'update_post' pk=post.id %}" class="btn btn-danger ml-2 btn-sm">Update</a>
+        {% endif %}
+      </div>
+      <h2><a class="article-title p-2" href="">{{ post.title }}</a></h2>
+      <p class="article-content p-2">{{ post.content }}</p>
+    </div>
+  </article>
+{% endblock %}
