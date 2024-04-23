@@ -1,7 +1,7 @@
 import os
 from .base import *
 
-DEBUG = False
+DEBUG = os.getenv("DEBUG_STATUS", False)
 
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
@@ -18,7 +18,7 @@ DATABASES = {
         'HOST': DB_HOST,
         'PORT': DB_PORT,
     }
-    }
+}
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = os.getenv("SECRET_KEY", "")
