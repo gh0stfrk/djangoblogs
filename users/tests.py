@@ -1,5 +1,5 @@
 import os
-from django.test import TestCase  # noqa
+from django.test import TestCase 
 from django.contrib.auth.models import User
 
 from django.conf import settings
@@ -8,7 +8,12 @@ from unittest.mock import patch
 
 class TestRegisterView(TestCase):
     @classmethod
-    def setUp(cls):
+    def setUpTestData(cls):
+        if(os.path.exists(os.path.join(settings.MEDIA_ROOT, "users", "random"))):
+            os.rmdir(os.path.join(settings.MEDIA_ROOT, "users", "random"))
+    
+    @classmethod
+    def tearDownClass(cls):
         if(os.path.exists(os.path.join(settings.MEDIA_ROOT, "users", "random"))):
             os.rmdir(os.path.join(settings.MEDIA_ROOT, "users", "random"))
     
@@ -43,7 +48,8 @@ class TestUserLoginView(TestCase):
     def tearDownClass(cls):
         media_dir = settings.MEDIA_ROOT
         username = cls.user.username
-        os.rmdir(os.path.join(media_dir, 'users', username))
+        if(os.path.exists(os.path.join(media_dir, 'users', username))):
+            os.rmdir(os.path.join(media_dir, 'users', username))
 
     def test_get_login_view(self):
         response = self.client.get("/login/")
