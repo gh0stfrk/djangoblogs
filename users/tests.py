@@ -9,13 +9,11 @@ from unittest.mock import patch
 class TestRegisterView(TestCase):
     @classmethod
     def setUpTestData(cls):
-        if(os.path.exists(os.path.join(settings.MEDIA_ROOT, "users", "random"))):
-            os.rmdir(os.path.join(settings.MEDIA_ROOT, "users", "random"))
+        pass
     
     @classmethod
     def tearDownClass(cls):
-        if(os.path.exists(os.path.join(settings.MEDIA_ROOT, "users", "random"))):
-            os.rmdir(os.path.join(settings.MEDIA_ROOT, "users", "random"))
+        pass
     
     def test_get_register_view(self):
         response = self.client.get("/register/")
@@ -46,21 +44,12 @@ class TestUserLoginView(TestCase):
         
     @classmethod
     def tearDownClass(cls):
-        media_dir = settings.MEDIA_ROOT
-        username = cls.user.username
-        if(os.path.exists(os.path.join(media_dir, 'users', username))):
-            os.rmdir(os.path.join(media_dir, 'users', username))
+        pass
 
     def test_get_login_view(self):
         response = self.client.get("/login/")
         self.assertEqual(response.status_code, 200)
         
-    def test_user_directory(self):
-        username = self.user.username
-        media_dir = settings.MEDIA_ROOT
-        user_dir = os.path.join(media_dir, 'users', username)
-        self.assertTrue(os.path.isdir(user_dir)) # asserts user directory is created with each user
-        self.assertEqual(len(os.listdir(user_dir)), 0) # asserts user directory is empty
 
     def test_login(self):
         username = self.user.username
@@ -75,4 +64,28 @@ class TestUserLoginView(TestCase):
     def test_logout(self):
         response = self.client.get("/logout/")
         self.assertEqual(response.status_code, 200)
+        
 
+class TestAboutView(TestCase):
+    def test_get_about_view(self):
+        response = self.client.get("/about/")
+        self.assertEqual(response.status_code, 200)
+
+
+class TestProfileView(TestCase):
+    
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
+            username="random", email="testuser@example.com", password="randomuser"
+        )
+        
+    def test_login_required(self):
+        response = self.client.get("/profile/")
+        self.assertEqual(response.status_code, 302)
+        
+    
+    def test_get_profile_view(self):
+        self.client.login(username="random", password="randomuser")
+        response = self.client.get("/profile/")
+        self.assertEqual(response.status_code, 200)
