@@ -24,5 +24,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = os.getenv("SECRET_KEY", "")
 
 MEDIA_ROOT = os.path.join("/var/www/","djangoblogs.onrender.com/media/")
-
-os.makedirs(MEDIA_ROOT, exist_ok=True)
