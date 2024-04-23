@@ -12,3 +12,18 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.content
+
+class Like(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    number = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.post.title

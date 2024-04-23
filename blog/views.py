@@ -3,12 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm
-from .models import Post
+from .models import Post, Like, Comments
 
 
 def home(request):
-    context = {"posts": Post.objects.all().order_by('-date_posted')}
+    posts = Post.objects.all().order_by("-date_posted")
+    context = {"posts": posts}
     return render(request, "blog/home.html", context)
+
 
 def about(request):
     return render(request, "blog/about.html", {"title": "About"})
@@ -18,6 +20,7 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     context = {"post": post, "request": request}
     return render(request, "blog/post_detail.html", context)
+
 
 def update_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -35,6 +38,7 @@ def update_post(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, "blog/create_post.html", {"form": form, "type": "Update"})
+
 
 @login_required
 def create_post(request):

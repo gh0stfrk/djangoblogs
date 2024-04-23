@@ -13,6 +13,7 @@
           </div>
           <h2><a class="article-title p-2" href="{% url 'detail' post.id %}">{{ post.title }}</a></h2>
           <p class="article-content p-2">{{ post.content }}</p>
+          <p> Likes {{ post.like.number }}</p>
         </div>
       </article>
     {% endfor %}

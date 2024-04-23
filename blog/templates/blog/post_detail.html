@@ -17,6 +17,12 @@
       </div>
       <h2><a class="article-title p-2" href="">{{ post.title }}</a></h2>
       <p class="article-content p-2">{{ post.content }}</p>
+      <div>
+        {% for comment in post.comments_set.all %}
+        <p>{{ comment.user.username }}</p>
+        <p>{{ comment.content }}</p>
+        {% endfor %}
+      </div>
     </div>
   </article>
 {% endblock %}
