@@ -1,13 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from cloudinary.forms import CloudinaryFileField
 from .models import Profile
 
 
-class UploadProfilePhotoForm(forms.Form):
-    profile_photo = forms.FileField(label="Profile Photo", required=True)
-
-
+class UploadProfilePhotoForm(forms.ModelForm):
+    image = CloudinaryFileField(label="Profile Photo", required=True)
+    
+    class Meta:
+        model = Profile
+        fields = ['image']
+        
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
