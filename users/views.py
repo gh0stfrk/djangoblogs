@@ -43,7 +43,7 @@ def profile(request: HttpRequest):
     if request.method == "POST":
         form = UploadProfilePhotoForm(request.POST, request.FILES)
         if form.is_valid():
-            profile_photo = request.FILES["profile_photo"]
+            profile_photo = request.FILES["image"]
             handle_profile_photo(request.user, profile_photo)
     form = UploadProfilePhotoForm()
     update_user = UpdateUserForm(instance=request.user)

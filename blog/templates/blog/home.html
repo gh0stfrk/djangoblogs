@@ -6,8 +6,8 @@
     <article class="media content-section border mt-2 rounded p-2">
         <div class="media-body">
           <div class="article-metadata p-1">
-          	<!-- <img class="rounded-circle" style="aspect-ratio: 1/1; width: 50px;" src="{{ post.author.profile.image.url }}" alt="profile_photo"> -->
-            {% cloudinary profile.image width=80 height=80 %}
+          	<img class="rounded-circle" style="aspect-ratio: 1/1; width: 50px;" src="{{ post.author.profile.image.url }}" alt="profile_photo">
+            <!-- {% cloudinary profile.image width=80 height=80 %} -->
             <a class="mr-2" href="#">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
           </div>
