@@ -9,6 +9,9 @@ It allows users to register and create their own blogs where they can write shor
 - Signals are used to create user profile when a user is created, the user profile contains additional information about a user, such as profile photo.
 - `blogs` app is responsible for creating and updating blogs.
 
+## Infrastructure
+![deployment](./screenshots/deployment.png)
+
 ## Development Environment 
 - Clone the latest branch
 ```bash
@@ -35,5 +38,11 @@ DB_PORT=
 ```
 
 ## Screenshots
+<img src="./screenshots/demo.gif" style="border-radius: 20px; display:block; margin: auto;"/>
+
+
+
 ![home](./screenshots/home.png)
+
+
 ![profile](./screenshots/profile.png)
