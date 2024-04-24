@@ -44,6 +44,7 @@ def like_a_post(request: HttpRequest):
         return JsonResponse({"likes": current_likes})
     return JsonResponse({"error": "Must be logged in to like a post"})
 
+
 def about(request):
     return render(request, "blog/about.html", {"title": "About"})
 
