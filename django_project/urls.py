@@ -27,6 +27,7 @@ from users import views as user_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("profile/", user_views.profile, name="profile"),
+    path("profile/<str:username>", user_views.user_profile, name="user_profile"),
     path("register/", user_views.register, name="register"),
     path("update-user/", user_views.update_user, name="update_user"),
     path(

@@ -1,19 +1,63 @@
 {% extends "blog/base.html" %}
+
 {% load static %}
 {% load cloudinary %}
+
 {% block content %}
-    {% for post in posts %}
-    <article class="media content-section border mt-2 rounded p-2">
-        <div class="media-body">
-          <div class="article-metadata p-1">
-          	<img class="rounded-circle" style="aspect-ratio: 1/1; width: 50px;" src="{{ post.author.profile.image.url }}" alt="profile_photo">
-            <!-- {% cloudinary profile.image width=80 height=80 %} -->
-            <a class="mr-2" href="#">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
-          </div>
-          <h2><a class="article-title p-2" href="{% url 'detail' post.id %}">{{ post.title }}</a></h2>
-          <p class="article-content p-2">{{ post.content }}</p>
-        </div>
-      </article>
-    {% endfor %}
+
+{% for post in posts %}
+<article class="media content-section border mt-2 rounded p-2">
+  <div class="media-body">
+    <div class="article-metadata p-1 mb-2">
+      <img class="rounded-circle" style="aspect-ratio: 1/1; width: 40px;" src="{{ post.author.profile.image.url }}"
+        alt="profile_photo">
+      @{{ post.author }}
+      <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+    </div>
+    <a class="p-2" href="{% url 'detail' post.id %}">{{ post.title }}</a>
+    <p class="p-2">{{ post.content }}</p>
+    <div class="interactions">
+      <div class="likes d-flex flex-col justify-items-center align-items-baseline p-2" style="gap: 1rem;">
+        <button class="like-button btn btn-primary btn-sm" data-post-id="{{ post.id }}">Like</button>
+        <p id="like-count{{post.id}}">{{ post.like.number }}</p>
+      </div>
+    </div>
+  </div>
+</article>
+{% endfor %}
+<script>
+  const likeButtons = document.querySelectorAll('.like-button');
+
+  const csrfToken = '{{ csrf_token }}';
+
+  likeButtons.forEach((button) => {
+    const postId = button.dataset.postId;
+    button.addEventListener('click', () => {
+      fetch(
+        "/like",
+        {
+          "method": "POST",
+          body: JSON.stringify({
+            "post_id": postId
+          }),
+          headers: {
+            'X-CSRFToken': csrfToken
+          }
+        },
+      ).then(response => {
+        if (!response.ok) {
+          alert("something went wrong")
+        }
+        return response.json()
+      }).then(data => {
+        const likeCount = document.getElementById('like-count' + postId);
+        if (data.likes) {
+          likeCount.textContent = data.likes
+        }
+        button.disabled = true
+      })
+    })
+
+  })
+</script>
 {% endblock content %}
