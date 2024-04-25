@@ -12,11 +12,14 @@ from django.shortcuts import get_object_or_404
 def user_profile(request: HttpRequest, username: str):
     user = get_object_or_404(User, username=username)
     profile = Profile.objects.get(user=user)
+    blogs = user.post_set.all()
     return JsonResponse(
         {
             "user": {"username": user.username, "email": user.email},
             "profile": {"image": str(profile.image.url)},
-        }
+            "blogs": list(blogs.values()),
+        },
+        safe=False,
     )
 
 
