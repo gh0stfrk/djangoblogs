@@ -45,4 +45,7 @@ python3 -m venv venv
 source ./venv/source/activate
 ```
 - Install dependencies Setup Postgres database credentials in a .env file, copy the contents of [.sample.env](./sample.env)
+```bash
+pip install -r requirements-deploy.txt
+```
 
