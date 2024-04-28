@@ -39,14 +39,16 @@ def register(request):
 
 def update_user(request):
     user_obj = get_object_or_404(User, id=request.user.id)
+    photo_form = UploadProfilePhotoForm()
     if request.method == "POST":
         form = UpdateUserForm(request.POST, instance=user_obj)
         if form.is_valid():
             form.save()
             messages.success(request, "Your account has been updated.")
             return redirect("profile")
-
-
+        return render(request, "users/profile.html", {"userform": form, "form": photo_form})
+    
+    
 def handle_profile_photo(user, profile_photo):
     profile = Profile.objects.get(user=user)
     profile.image = profile_photo

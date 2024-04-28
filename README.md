@@ -17,17 +17,17 @@
 </p>
 Django Blogs is a simple and lightweight blogging application built with Django.
 
-It allows users to register and create their own blogs where they can write short and informative posts.
+It allows users to register and create blogs where they can write short and informative posts.
 
 ## 🔥 Features
 - Sign up and create profiles, customize your profiles with avatars
 - Create mini-blog posts, update them and share them
-- Likes and Comments, like posts and comment your own thoughts.
+- Likes and Comments, like posts and comment with your thoughts.
 
 ## 📦 Structure 
 - Django project contains two applications one is `users` and the other one is `blogs`.
-- `users` app is controlling all things user related, inculding sign up, registering and updating user information.
-- Signals are used to create user profile when a user is created, the user profile contains additional information about a user, such as profile photo.
+`users` app controls all things user-related, including signing up, registering and updating user information.
+- Signals are used to create a user profile when a user is created, the user profile contains additional information about the user, such as a profile photo.
 - `blogs` app is responsible for creating and updating blogs.
 
 ## 🏛️ Infrastructure
@@ -44,9 +44,8 @@ cd djangoblog
 python3 -m venv venv
 source ./venv/source/activate
 ```
-- Install dependencies 
+- Install dependencies Setup Postgres database credentials in a .env file, copy the contents of [.sample.env](./sample.env)
 ```bash
 pip install -r requirements-deploy.txt
 ```
-- Setup postgres database credentials in a .env file, copy the contents of [.sample.env](./sample.env)
 
